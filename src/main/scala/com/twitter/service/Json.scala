@@ -1,5 +1,5 @@
 /** Copyright 2008 Twitter, Inc. */
-package com.twitter.commons
+package com.twitter.service
 
 import net.lag.extensions._
 import scala.collection.Map
@@ -31,7 +31,7 @@ private class JsonParser extends JavaTokenParsers {
   }
 
   def string: Parser[String] =
-    "\"" ~> """([^\"\p{Cntrl}\\]|\\[\\/bfnrt"]|\\u[a-fA-F0-9]{4})*""".r <~ "\"" ^^
+    "\"" ~> """([^\"\p{Cntrl}\\]+|\\[\\/bfnrt"]|\\u[a-fA-F0-9]{4})*""".r <~ "\"" ^^
       { _.replace("""\/""", "/").unquoteC }
 
   def value: Parser[Any] = obj | arr | string | number |
